@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.weggroup</groupId>
+    <artifactId>flight_booking</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <dependencies>
+
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.15</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <properties>
+        <aspectj.version>1.8.10</aspectj.version>
+        <allure.version>{latest-allure-version}</allure.version>
+        <allure.version>1.5.2</allure.version>
+        <selenium.version>3.4.0</selenium.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <!-- examples of how to use the profiles from the command line -->
+    <!-- mvn test
+                will run the anyBrowserTests profile -->
+    <!-- mvn test -PanyBrowserTests
+                will run the anyBrowserTests profile -->
+    <!-- mvn test -PfirefoxTests
+                will run the firefoxTests profile -->
+
+    <profiles>
+    <profile>
+        <id>chromeTest</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.20</version>
+                    <configuration>
+                        <parallel>methods</parallel>
+                        <threadCount>10</threadCount>
+                        <perCoreThreadCount>true</perCoreThreadCount>
+
+                        <includes>
+                            <include>**/UnitTestSuite.class</include>
+                        </includes>
+                        <testFailureIgnore>false</testFailureIgnore>
+                        <argLine>
+                            -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                        </argLine>
+                        <properties>
+                            <property>
+                                <name>listener</name>
+                                <value> </value>
+                            </property>
+                        </properties>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+
+    </profiles>
+
+
+
+
+
+</project>
+
+
+
